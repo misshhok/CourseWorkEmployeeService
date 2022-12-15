@@ -29,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             .findById(changeStatusDto.getId())
             .orElseThrow(() -> new RuntimeException("Работника с таким ID нет в базе данных"));
     employeeModel.setDisabled(changeStatusDto.isStatus());
+    employeeRepository.save(employeeModel);
   }
 
   @Override

@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 public class ChangeStatusDto {
   @Schema(description = "Идентификатор", example = "1")
   private Long id;
-  @Schema(description = "Статус: \n\t true - готов к работе \n\tfalse - не готов к работе ", example = "true")
+
+  @Schema(
+      description = "Статус: \n\t true - готов к работе \n\tfalse - не готов к работе ",
+      example = "true")
   private boolean status;
 }

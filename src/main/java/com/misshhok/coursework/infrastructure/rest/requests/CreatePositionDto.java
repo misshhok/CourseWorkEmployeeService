@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 public class CreatePositionDto {
   @Schema(description = "Название должности", example = "Профессор")
   private String title;
-  @Schema(description = "Описание должности", example = "университетский преподаватель высокого уровня компетентности и одновременно учёный, являющийся экспертом в определённой области науки или искусства.")
+
+  @Schema(
+      description = "Описание должности",
+      example =
+          "университетский преподаватель высокого уровня компетентности и одновременно учёный, являющийся экспертом в определённой области науки или искусства.")
   private String description;
 }
