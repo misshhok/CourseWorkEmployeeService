@@ -77,7 +77,7 @@ public class PositionController {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
-  @Operation(summary = "Получить информацию о должности по ID", tags = "Employee")
+  @Operation(summary = "Получить информацию о должности по ID", tags = "Positions")
   @ApiResponses(
       value = {
         @ApiResponse(
