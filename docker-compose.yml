@@ -9,6 +9,8 @@ services:
       environment:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
+      volumes:
+        - ./postgresVolume:/var/lib/postgresql/data
     rabbitmq:
       container_name: "rabbitmq"
       image: rabbitmq:3-management-alpine
