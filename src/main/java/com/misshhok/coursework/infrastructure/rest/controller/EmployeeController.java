@@ -33,12 +33,12 @@ public class EmployeeController {
   private final EmployeeService employeeService;
   private final AmqpTemplate rabbitTemplate;
 
-  @Operation(summary = "Gets all users", tags = "Employee")
+  @Operation(summary = "Получить список работников", tags = "Employee")
   @ApiResponses(
       value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Found the users",
+            description = "Получен список работников",
             content = {
               @Content(
                   mediaType = "application/json",
