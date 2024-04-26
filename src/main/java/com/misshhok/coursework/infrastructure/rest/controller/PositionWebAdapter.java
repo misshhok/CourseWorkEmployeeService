@@ -1,7 +1,7 @@
 package com.misshhok.coursework.infrastructure.rest.controller;
 
 import com.misshhok.coursework.application.service.EmployeeService;
-import com.misshhok.coursework.infrastructure.presistience.model.PositionModel;
+import com.misshhok.coursework.infrastructure.persistance.model.Position;
 import com.misshhok.coursework.infrastructure.rest.requests.CreatePositionDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -10,8 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,15 +21,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Positions", description = "API для работы с должностями")
 @RequestMapping("positions/")
-public class PositionController {
+public class PositionWebAdapter {
   private final EmployeeService employeeService;
-  private final AmqpTemplate rabbitTemplate;
 
   @Operation(summary = "Создание должности", tags = "Positions")
   @ApiResponses(
@@ -40,14 +38,11 @@ public class PositionController {
             content = {
               @Content(
                   mediaType = "application/json",
-                  schema = @Schema(implementation = PositionModel.class))
+                  schema = @Schema(implementation = Position.class))
             })
       })
   @PostMapping()
-  public ResponseEntity<PositionModel> createPosition(
-      @RequestBody CreatePositionDto createPositionDto) {
-    rabbitTemplate.convertAndSend(
-        "notificationQueue", "Попытка создать новую должность - " + createPositionDto.getTitle());
+  public ResponseEntity<Position> createPosition(@RequestBody CreatePositionDto createPositionDto) {
     return ResponseEntity.ok().body(employeeService.createPosition(createPositionDto));
   }
 
@@ -60,19 +55,17 @@ public class PositionController {
             content = {
               @Content(
                   mediaType = "application/json",
-                  array = @ArraySchema(schema = @Schema(implementation = PositionModel.class)))
+                  array = @ArraySchema(schema = @Schema(implementation = Position.class)))
             })
       })
   @GetMapping()
-  public ResponseEntity<List<PositionModel>> getPositions() {
-    rabbitTemplate.convertAndSend("notificationQueue", "Попытка получить список должностей");
+  public ResponseEntity<List<Position>> getPositions() {
     return ResponseEntity.ok().body(employeeService.getAllPositions());
   }
 
   @Operation(summary = "Удалить позицию по ID", tags = "Positions")
   @DeleteMapping("{id}")
   public ResponseEntity<Void> deletePosition(@PathVariable Long id) {
-    rabbitTemplate.convertAndSend("notificationQueue", "Попытка удалить должность с ID " + id);
     employeeService.deletePosition(id);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
@@ -86,13 +79,11 @@ public class PositionController {
             content = {
               @Content(
                   mediaType = "application/json",
-                  schema = @Schema(implementation = PositionModel.class))
+                  schema = @Schema(implementation = Position.class))
             })
       })
   @GetMapping("{id}")
-  public ResponseEntity<PositionModel> getPositionById(@PathVariable Long id) {
-    rabbitTemplate.convertAndSend(
-        "notificationQueue", "Попытка получить информацию о должности c ID- " + id);
+  public ResponseEntity<Position> getPositionById(@PathVariable Long id) {
     return ResponseEntity.ok().body(employeeService.getPositionById(id));
   }
 }

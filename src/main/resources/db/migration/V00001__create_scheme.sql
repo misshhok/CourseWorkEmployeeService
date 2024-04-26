@@ -1,17 +1,15 @@
 CREATE TABLE employee (
                           id bigserial PRIMARY KEY,
-                          disabled boolean default false,
-                          passport_butch varchar(4)  NOT NULL,
-                          passport_number varchar(6) NOT NULL,
-                          name varchar(15) NOT NULL,
-                          surname varchar(15) NOT NULL,
+                          state varchar(255),
+                          passport_series_number varchar(255) NOT NULL,
+                          name varchar(255) NOT NULL,
+                          surname varchar(255) NOT NULL,
                           date_of_birth date NOT NULL
 );
 
 CREATE TABLE position (
                            id bigserial PRIMARY KEY ,
-                           title varchar(50)  NOT NULL,
-                           description text  NOT NULL
+                           title varchar(255)  NOT NULL
 );
 
 

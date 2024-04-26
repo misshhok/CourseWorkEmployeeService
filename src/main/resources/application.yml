@@ -2,7 +2,6 @@ logging:
   level:
     org:
       springframework: ERROR
-
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -21,12 +20,13 @@ spring:
       mode: always
       platform: postgres
   datasource:
-    url: "jdbc:postgresql://localhost:5433/postgres"
+    url: "jdbc:postgresql://localhost:5434/postgres"
     username: "postgres"
     password: "postgres"
 
   flyway:
-#    locations: classpath:/db/migration/postgres/
     url: ${spring.datasource.url}
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+server:
+  port: 8080

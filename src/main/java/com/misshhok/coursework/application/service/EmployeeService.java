@@ -1,29 +1,30 @@
 package com.misshhok.coursework.application.service;
 
-import com.misshhok.coursework.infrastructure.presistience.model.EmployeeModel;
-import com.misshhok.coursework.infrastructure.presistience.model.PositionModel;
-import com.misshhok.coursework.infrastructure.rest.requests.ChangeStatusDto;
+import com.misshhok.coursework.infrastructure.persistance.model.Employee;
+import com.misshhok.coursework.infrastructure.persistance.model.Position;
 import com.misshhok.coursework.infrastructure.rest.requests.CreateEmployeeDto;
 import com.misshhok.coursework.infrastructure.rest.requests.CreatePositionDto;
 import java.util.List;
 
 public interface EmployeeService {
 
-  void changeEmployeeStatus(ChangeStatusDto changeStatusDto);
+  void dismissEmployee(final Long employeeId);
 
-  List<EmployeeModel> getAllEmployers();
+  void vacation(final Long employeeId);
 
-  EmployeeModel createEmployee(CreateEmployeeDto createEmployeeDto);
+  void working(final Long employeeId);
 
-  PositionModel createPosition(CreatePositionDto createPositionDto);
+  List<Employee> getAllEmployers();
+
+  Employee createEmployee(CreateEmployeeDto createEmployeeDto);
+
+  Position createPosition(CreatePositionDto createPositionDto);
 
   void deletePosition(Long id);
 
-  void deleteEmployee(Long id);
+  List<Position> getAllPositions();
 
-  List<PositionModel> getAllPositions();
+  Position getPositionById(Long id);
 
-  PositionModel getPositionById(Long id);
-
-  EmployeeModel getEmployeeById(Long id);
+  Employee getEmployeeById(Long id);
 }

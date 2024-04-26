@@ -1,0 +1,13 @@
+version: '0.1'
+
+services:
+    postgres:
+      image: postgres:12.6-alpine
+      container_name: postgresDBContainer
+      ports:
+        - "5434:5432"
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      volumes:
+        - ./volume:/var/lib/postgresql/data
