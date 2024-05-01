@@ -19,3 +19,4 @@ CREATE TABLE position_employee (
                                    PRIMARY KEY (position_id, employee_id)
 
 );
+

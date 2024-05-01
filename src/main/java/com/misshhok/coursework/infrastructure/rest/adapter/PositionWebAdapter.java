@@ -1,4 +1,4 @@
-package com.misshhok.coursework.infrastructure.rest.controller;
+package com.misshhok.coursework.infrastructure.rest.adapter;
 
 import com.misshhok.coursework.application.service.EmployeeService;
 import com.misshhok.coursework.infrastructure.persistance.model.Position;
